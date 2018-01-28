@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <SharedDataSet>
+        <SharedDataSetReference>Dashboard_Mixnummer</SharedDataSetReference>
+        <QueryParameters>
+          <QueryParameter Name="@mixNummer">
+            <Value>=Parameters!mixNummer.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Mixnummer">
+          <DataField>Mixnummer</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="Naam">
+          <DataField>Naam</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Aantal">
+          <DataField>Aantal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Categorie">
+          <DataField>Categorie</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Stuknummer">
+          <DataField>Stuknummer</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Locatie">
+          <DataField>Locatie</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix1">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>1.81403cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>4.32596cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.94711cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>4.45987cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.23737cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Locatie</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox3">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Categorie</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Stuknummer</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox7">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Naam</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox7</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Aantal</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Locatie">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Locatie.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Locatie</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Categorie">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Categorie.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Categorie</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Stuknummer">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Stuknummer.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Stuknummer</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Naam">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Naam.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Naam</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Aantal">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Aantal.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Aantal</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DataSet1</DataSetName>
+            <Top>2.28493cm</Top>
+            <Height>1.2cm</Height>
+            <Width>16.78433cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+          <Textbox Name="date">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Now()</Value>
+                    <Style>
+                      <Format>g</Format>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.36292cm</Top>
+            <Left>11.10933cm</Left>
+            <Height>0.6cm</Height>
+            <Width>5.675cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Title">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Mixnummer: "&amp; Parameters!mixNummer.Value</Value>
+                    <Style>
+                      <FontFamily>verdana</FontFamily>
+                      <FontSize>16pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>MidnightBlue</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Height>1.18208cm</Height>
+            <Width>8.13563cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border />
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Icon">
+            <Source>Embedded</Source>
+            <Value>dashboardicon</Value>
+            <Sizing>FitProportional</Sizing>
+            <Left>14.60183cm</Left>
+            <Height>2.10854cm</Height>
+            <Width>2.1825cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+        </ReportItems>
+        <Height>2.3476in</Height>
+        <Style>
+          <Border>
+            <Color>CornflowerBlue</Color>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Body>
+      <Width>6.608in</Width>
+      <Page>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>21cm</PageWidth>
+        <LeftMargin>2cm</LeftMargin>
+        <RightMargin>2cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="mixNummer">
+      <DataType>String</DataType>
+      <Prompt>Mixnummer:</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>mixNummer</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <EmbeddedImages>
+    <EmbeddedImage Name="dashboardicon">
+      <MIMEType>image/jpeg</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>866f330b-c0be-4daa-8568-433136c01aa7</rd:ReportID>
+</Report>

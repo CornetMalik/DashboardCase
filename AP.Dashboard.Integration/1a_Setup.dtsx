@@ -1,0 +1,589 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/24/2017 11:03:27 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-KC0M1AF5"
+  DTS:CreatorName="LAPTOP-KC0M1AF5\Malik"
+  DTS:DTSID="{AF273AB4-37D8-4A09-BA86-91D94BAD598C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0800.98"
+  DTS:LocaleID="2067"
+  DTS:ObjectName="1a_Setup"
+  DTS:PackageType="5"
+  DTS:VersionBuild="70"
+  DTS:VersionGUID="{10E571AA-D787-4B9B-9C38-E1B89F46BE68}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+      DTS:ObjectName="(LocalDb)\MSSQLLocalDB.staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{62C50CEE-3082-47E0-B223-456B4FEE5BD5}"
+      DTS:ObjectName="DB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=master;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+      DTS:ObjectName="DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=dw_dashboard;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\create dw_dashboard database"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8F83FD97-CF27-4837-916F-F2CA459E3F04}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="create dw_dashboard database"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="9">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{62C50CEE-3082-47E0-B223-456B4FEE5BD5}"
+          SQLTask:SqlStatementSource="if not exists(select * from sys.databases where name = 'dw_dashboard') create database dw_dashboard" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\create staging database"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9DCCD110-89D3-44C4-8243-4CB22FFB9983}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="create staging database"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{62C50CEE-3082-47E0-B223-456B4FEE5BD5}"
+          SQLTask:SqlStatementSource="if not exists(select * from sys.databases where name = 'staging') create database staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\dwh"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6C3D4D9C-D903-4DEE-8D79-332E7A09FE41}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="dwh">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_cartype"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ba092fb5-06f4-4343-972f-c1ebe50f1667}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_cartype"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="10">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_cartype') IS NOT NULL drop table dbo.dim_cartype&#xA;&#xA;create table dbo.dim_cartype(&#xA;dim_cartype_id int identity(1,1) primary key,&#xA;cartype varchar(256)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_color"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{2fdb891f-5e94-4f2d-b89f-4db6bf267c95}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_color"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="11">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_color') IS NOT NULL drop table dbo.dim_color&#xA;&#xA;create table dbo.dim_color(&#xA;dim_color_id int identity(1,1) primary key,&#xA;color varchar(255)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_language"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{dd6808e8-e924-4c3a-90d8-80c6b5203bbf}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_language"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="12">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_language') IS NOT NULL drop table dbo.dim_language&#xA;&#xA;create table dbo.dim_language(&#xA;dim_language_id int identity(1,1) primary key,&#xA;language varchar(255)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_location"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0161214d-b34f-43e6-9385-1308f4819bd5}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_location"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="13">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_location') IS NOT NULL drop table dbo.dim_location&#xA;&#xA;create table dbo.dim_location(&#xA;dim_location_id int identity(1,1) primary key,&#xA;location_id int,&#xA;naam varchar(256),&#xA;rij varchar(64),&#xA;startplaats SMALLINT,&#xA;eindplaats SMALLINT,&#xA;afstand SMALLINT&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_measurement"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{76f7c383-2015-4ccc-891e-fa67dd33bd6e}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_measurement"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="14">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_measurement') IS NOT NULL drop table dbo.dim_measurement&#xA;&#xA;create table dbo.dim_measurement(&#xA;dim_measurement_id int identity(1,1) primary key,&#xA;measurement varchar(255)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_mixnummer"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7a4b01f1-9e9c-439a-8bdb-b3d5c75b1f28}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_mixnummer"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="15">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_mixnummer') IS NOT NULL drop table dbo.dim_mixnummer&#xA;&#xA;create table dbo.dim_mixnummer(&#xA;dim_mixnummer_id int identity(1,1) primary key,&#xA;mixnummer bigint&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_part"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{66c8ead2-c8b4-44a1-b1fc-efa3a0bdf7e0}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_part"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="16">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_part') IS NOT NULL drop table dbo.dim_part&#xA;&#xA;create table dbo.dim_part(&#xA;dim_part_id int identity(1,1) primary key,&#xA;stuknummer varchar(256),&#xA;naam varchar(256),&#xA;omschrijving varchar(256),&#xA;category varchar(256),&#xA;price money&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create dim_time"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{e57bcf40-f185-412a-8fc7-879ceab3b6c8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create dim_time"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="17">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.dim_time') IS NOT NULL drop table dbo.dim_time&#xA;&#xA;create table dbo.dim_time(&#xA;dim_time_id int identity(1,1) primary key,&#xA;fulldate datetime,&#xA;date date,&#xA;day_of_month smallint,&#xA;month_of_year smallint,&#xA;year smallint,&#xA;month_name varchar(16),&#xA;day_name varchar(16),&#xA;quarter smallint,&#xA;time time,&#xA;hour_of_day smallint&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\dwh\create fact_dashboard"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{a7bb7954-b26a-4fb5-9664-3c744e6b8b1b}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create fact_dashboard"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="9">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9C42EB23-69B0-4E31-852B-3D935F69CA2B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.fact_dashboard') IS NOT NULL drop table dbo.fact_dashboard&#xA;&#xA;create table dbo.fact_dashboard(&#xA;fact_dashboard_id int identity(1,1) primary key,&#xA;dim_location_id int,&#xA;dim_part_id int,&#xA;dim_mixnummer_id int,&#xA;dim_time_id int,&#xA;dim_cartype_id int,&#xA;dim_color_id int,&#xA;dim_language_id int,&#xA;dim_measurement_id int&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\sa"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{4AB3A5E9-9A29-491E-91D2-BFCE5E97D567}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="sa">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging cartype"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{3632b361-7c67-4143-b86e-defdbd5a374c}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging cartype"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.cartype_staging') IS NOT NULL drop table staging.dbo.cartype_staging&#xA;&#xA;create table staging.dbo.cartype_staging(&#xA;cartype varchar(256)&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging color"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{cbd9d8b4-9607-491b-8df9-7de8f3967a8a}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging color"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="6">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.color_staging') IS NOT NULL drop table staging.dbo.color_staging&#xA;&#xA;create table staging.dbo.color_staging(&#xA;color varchar(255)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging fact"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{4559055e-4a12-4c9b-9696-0c840ea994fa}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging fact"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="7">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.fact_staging') IS NOT NULL drop table staging.dbo.fact_staging&#xA;&#xA;create table staging.dbo.fact_staging(&#xA;dim_location_id int,&#xA;dim_part_id int,&#xA;dim_mixnummer_id int,&#xA;dim_time_id int,&#xA;dim_cartype_id int,&#xA;dim_color_id int,&#xA;dim_language_id int,&#xA;dim_measurement_id int&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging language"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{81272f68-31e2-4b5f-8174-ad13421b5a0e}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging language"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="3">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.language_staging') IS NOT NULL drop table staging.dbo.language_staging&#xA;&#xA;create table staging.dbo.language_staging(&#xA;language varchar(255)&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging location"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{444b8d6e-9ab0-49cb-ae32-77360ba519ea}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging location"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="4">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.location_staging') IS NOT NULL drop table staging.dbo.location_staging&#xA;&#xA;create table staging.dbo.location_staging(&#xA;location_id int primary key,&#xA;naam varchar(255),&#xA;rij varchar(64),&#xA;startplaats SMALLINT,&#xA;eindplaats SMALLINT,&#xA;afstand SMALLINT&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging measurement"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{3cde291d-a66a-4a94-b09e-db61d991a012}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging measurement"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="5">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.measurement_staging') IS NOT NULL drop table staging.dbo.measurement_staging&#xA;&#xA;create table staging.dbo.measurement_staging(&#xA;measurement varchar(255)&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging mixnumber"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0762a87c-1630-49ae-a5d9-aab7330fb0a2}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging mixnumber"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.mixnummer_staging') IS NOT NULL drop table staging.dbo.mixnummer_staging&#xA;&#xA;create table staging.dbo.mixnummer_staging(&#xA;mixnummer bigint&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging part"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6b637366-3415-463d-9039-7256ac0b38c8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging part"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.part_staging') IS NOT NULL drop table staging.dbo.part_staging&#xA;&#xA;create table staging.dbo.part_staging(&#xA;stuknummer varchar(256),&#xA;naam varchar(256),&#xA;omschrijving varchar(256),&#xA;category varchar(256),&#xA;price money&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\sa\create staging time"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9d235fbb-0dfc-402f-b710-f4b01cbfff01}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="create staging time"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="8">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{820144C8-D73C-4C16-AA11-C3F1C9DE144B}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('staging.dbo.time_staging') IS NOT NULL drop table staging.dbo.time_staging&#xA;&#xA;create table staging.dbo.time_staging(&#xA;fulldate datetime,&#xA;date date,&#xA;day_of_month smallint,&#xA;month_of_year smallint,&#xA;year smallint,&#xA;month_name varchar(16),&#xA;day_name varchar(16),&#xA;quarter smallint,&#xA;time time,&#xA;hour_of_day smallint&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4E703148-CFAE-4247-8C92-7E27EE842B37}"
+      DTS:From="Package\create dw_dashboard database"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\dwh" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{90F8D2E2-D1AF-4BF5-A9C5-FBB632E57ECD}"
+      DTS:From="Package\create staging database"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\sa" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="226,42"
+          Id="Package\create dw_dashboard database"
+          TopLeft="1156.5,5.49999999999989" />
+        <NodeLayout
+          Size="191,42"
+          Id="Package\create staging database"
+          TopLeft="3824,5.49999999999955" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\dwh\create dim_cartype"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\dwh\create dim_color"
+          TopLeft="471.5,5.49999999999989" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\dwh\create dim_language"
+          TopLeft="689,5.49999999999989" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\dwh\create dim_location"
+          TopLeft="927.5,5.49999999999989" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\dwh\create dim_measurement"
+          TopLeft="1159.5,5.49999999999977" />
+        <NodeLayout
+          Size="191,42"
+          Id="Package\dwh\create dim_mixnummer"
+          TopLeft="1419.5,5.49999999999977" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\dwh\create dim_part"
+          TopLeft="1671,5.49999999999977" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\dwh\create fact_dashboard"
+          TopLeft="2123,5.49999999999966" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\dwh\create dim_time"
+          TopLeft="2367.5,5.49999999999966" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="2528,102"
+          Size="2528,146"
+          Id="Package\dwh"
+          TopLeft="5.5,107.5" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\sa\create staging cartype"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\sa\create staging color"
+          TopLeft="499.5,5.49999999999989" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\sa\create staging fact"
+          TopLeft="732.5,5.49999999999989" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\sa\create staging language"
+          TopLeft="959.5,5.49999999999989" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\sa\create staging location"
+          TopLeft="1212,5.49999999999977" />
+        <NodeLayout
+          Size="213,42"
+          Id="Package\sa\create staging measurement"
+          TopLeft="1458,5.49999999999977" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\sa\create staging mixnumber"
+          TopLeft="1731.5,5.49999999999977" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\sa\create staging part"
+          TopLeft="1994.5,5.49999999999977" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\sa\create staging time"
+          TopLeft="2474.5,5.49999999999966" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="2650,102"
+          Size="2650,146"
+          Id="Package\sa"
+          TopLeft="2594.5,107.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="1269.5,47.4999999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="3919.5,47.4999999999995">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

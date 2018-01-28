@@ -1,0 +1,649 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/27/2017 7:03:34 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-KC0M1AF5"
+  DTS:CreatorName="LAPTOP-KC0M1AF5\Malik"
+  DTS:DTSID="{0E8E0796-F568-4A3A-950F-35FE7F4F008B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0800.98"
+  DTS:LocaleID="2067"
+  DTS:ObjectName="2e_Measurement_ETL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{C17F1C30-A742-42B1-AA81-A7A6F0DA0E08}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.Dashboards]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{97394905-AD79-4AB7-BA67-CF05D5A1DF79}"
+      DTS:ObjectName="(LocalDb)\MSSQLLocalDB.Dashboards">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=Dashboards;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.dw_dashboard]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{75B230C2-6CFC-440E-B293-A730DAD064BA}"
+      DTS:ObjectName="(LocalDb)\MSSQLLocalDB.dw_dashboard">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=dw_dashboard;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E4EAD445-5070-4C12-96EB-5BF3AE1C12D6}"
+      DTS:ObjectName="(LocalDb)\MSSQLLocalDB.staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\push measurement to dwh"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{d483ed31-62c9-4752-aa53-79679a39b4c9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="push measurement to dwh"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E4EAD445-5070-4C12-96EB-5BF3AE1C12D6}"
+          SQLTask:SqlStatementSource="insert into dw_dashboard.dbo.dim_measurement(measurement)&#xA;select measurement from measurement_staging where not measurement in (select measurement from dw_dashboard.dbo.dim_measurement)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\stage measurement"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{fb474917-fc2a-493a-a05a-7e3394854492}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="stage measurement"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\stage measurement\measurements"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="measurements"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Wagen]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\stage measurement\measurements.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.Dashboards]"
+                  connectionManagerRefId="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.Dashboards]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].Columns[Maatsysteem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Maatsysteem]"
+                      length="10"
+                      lineageId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].Columns[Maatsysteem]"
+                      name="Maatsysteem"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Mixnummer]"
+                      dataType="i8"
+                      name="Mixnummer" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Mixmoment]"
+                      dataType="dbTimeStamp"
+                      name="Mixmoment" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[WagenType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="WagenType" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Uitvoering]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="Uitvoering" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Motor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Motor" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Kleur]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Kleur" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Bekleding]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Bekleding" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[KleurInterieur]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="KleurInterieur" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Maatsysteem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Maatsysteem" />
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].ExternalColumns[Taal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Taal" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output].Columns[Maatsysteem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\stage measurement\measurements.Outputs[OLE DB Source Error Output].Columns[Maatsysteem]"
+                      name="Maatsysteem" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\stage measurement\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\stage measurement\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\stage measurement\Sort.Inputs[Sort Input].Columns[Maatsysteem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Maatsysteem"
+                      lineageId="Package\stage measurement\measurements.Outputs[OLE DB Source Output].Columns[Maatsysteem]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\stage measurement\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\stage measurement\Sort.Outputs[Sort Output].Columns[Maatsysteem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\stage measurement\Sort.Outputs[Sort Output].Columns[Maatsysteem]"
+                      name="Maatsysteem"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\stage measurement\measurements.Outputs[OLE DB Source Output].Columns[Maatsysteem]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\stage measurement\staging measurement"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="staging measurement"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[measurement_staging]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\stage measurement\staging measurement.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[(LocalDb)\MSSQLLocalDB.staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\stage measurement\staging measurement.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\stage measurement\staging measurement.Inputs[OLE DB Destination Input].Columns[Maatsysteem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Maatsysteem"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\stage measurement\staging measurement.Inputs[OLE DB Destination Input].ExternalColumns[measurement]"
+                      lineageId="Package\stage measurement\Sort.Outputs[Sort Output].Columns[Maatsysteem]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\stage measurement\staging measurement.Inputs[OLE DB Destination Input].ExternalColumns[measurement]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="measurement" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\stage measurement\staging measurement.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\stage measurement\staging measurement.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\stage measurement\staging measurement.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\stage measurement\staging measurement.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\stage measurement\staging measurement.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\stage measurement\staging measurement.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\stage measurement.Paths[OLE DB Source Output]"
+              endId="Package\stage measurement\Sort.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\stage measurement\measurements.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\stage measurement.Paths[Sort Output]"
+              endId="Package\stage measurement\staging measurement.Inputs[OLE DB Destination Input]"
+              name="Sort Output"
+              startId="Package\stage measurement\Sort.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate measurement_staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{a5e8573b-d04c-4100-9f8f-3838cfc91fe7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate measurement_staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E4EAD445-5070-4C12-96EB-5BF3AE1C12D6}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE measurement_staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{023D0B59-138E-46BD-A74D-C86F8F5D20AF}"
+      DTS:From="Package\Truncate measurement_staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\stage measurement" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3 1 1 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{7803909d-22bb-47d8-a0b1-1d7f2bce06a3}"
+      DTS:From="Package\stage measurement"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3 1 1 2"
+      DTS:To="Package\push measurement to dwh" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="205,42"
+          Id="Package\push measurement to dwh"
+          TopLeft="305.5,257.5" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\stage measurement"
+          TopLeft="323.5,183.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3 1 1 2]"
+          TopLeft="408.75,225.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="228,42"
+          Id="Package\Truncate measurement_staging"
+          TopLeft="294.5,108.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="409,150.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\stage measurement">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="181,42"
+          Id="Package\stage measurement\staging measurement"
+          TopLeft="366,296" />
+        <NodeLayout
+          Size="148,42"
+          Id="Package\stage measurement\measurements"
+          TopLeft="384,150" />
+        <NodeLayout
+          Size="98,42"
+          Id="Package\stage measurement\Sort"
+          TopLeft="406,222" />
+        <EdgeLayout
+          Id="Package\stage measurement.Paths[Sort Output]"
+          TopLeft="455.75,264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\stage measurement.Paths[OLE DB Source Output]"
+          TopLeft="456.5,192">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\stage measurement\staging measurement">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\stage measurement\measurements">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

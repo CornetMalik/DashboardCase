@@ -1,0 +1,168 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="43776d5b-d481-41ef-bb6f-da860cb54aeb" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Dim Part</ID>
+  <Name>Dim Part</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="60e76304-bb34-4551-b715-916c152ae371">
+    <DataSourceViewID>DSV_WarehouseManager</DataSourceViewID>
+  </Source>
+  <UnknownMember>Visible</UnknownMember>
+  <ErrorConfiguration dwd:design-time-name="81aa558d-5358-4a3a-b7e1-e9ed851350aa">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="72906a51-5b67-42a7-a9c1-5a7999c077cf">
+      <ID>Dim Part Id</ID>
+      <Name>Dim Part Id</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="b16a274f-24be-4ace-95c8-8e74090736cf">
+          <DataType>Integer</DataType>
+          <NullProcessing>UnknownMember</NullProcessing>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="b5765ec5-69f3-491e-98bf-0234009590c0">
+            <TableID>dbo_dim_part</TableID>
+            <ColumnID>dim_part_id</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="bfaf9ee0-aaf7-483f-b86a-edf84e8a93ab">
+        <DataType>WChar</DataType>
+        <DataSize>256</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="ae54cd32-4946-4b90-9360-0a303f59c650">
+          <TableID>dbo_dim_part</TableID>
+          <ColumnID>stuknummer</ColumnID>
+        </Source>
+      </NameColumn>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="228dd20c-3855-402f-ab62-ec1e9da02c41">
+          <AttributeID>Naam</AttributeID>
+          <Name>Naam</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="08eb4efd-a743-4bc8-90bb-c8d20ef0a268">
+          <AttributeID>Omschrijving</AttributeID>
+          <Name>Omschrijving</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="b85018f9-4859-4fb5-8397-a5254ac7f700">
+          <AttributeID>Category</AttributeID>
+          <Name>Category</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="a521ce1b-27cb-4d7d-9e0d-d5b3da77082e">
+          <AttributeID>Price</AttributeID>
+          <Name>Price</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="284f82c7-9022-433b-9871-d7a63c4f4c85">
+      <ID>Naam</ID>
+      <Name>Naam</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="28bc25ec-1116-4954-95f3-ee3963a85369">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="dfcab183-86d3-4a50-8556-27bafe590c9a">
+            <TableID>dbo_dim_part</TableID>
+            <ColumnID>naam</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="7a11a3db-a006-4063-9695-97f07f2aa4ae">
+      <ID>Omschrijving</ID>
+      <Name>Omschrijving</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="0987c521-9111-439c-a423-859f240acc1d">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="39e4ecb6-b399-4a76-bd5a-627593219434">
+            <TableID>dbo_dim_part</TableID>
+            <ColumnID>omschrijving</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="9514380c-4641-478a-b8b0-d158791f5ac7">
+      <ID>Category</ID>
+      <Name>Category</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="f28d5d38-cc79-43fe-a851-e0f3e13e6d46">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="d40b7672-f64c-46ce-9759-bd6ba6966f41">
+            <TableID>dbo_dim_part</TableID>
+            <ColumnID>category</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="c55d8e59-3ede-40b4-802a-1fa58e3505a3">
+      <ID>Price</ID>
+      <Name>Price</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="e3f096fb-86f2-49b8-93d8-45994552ebed">
+          <DataType>Double</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="466685d3-5c8c-45ba-9eb7-022f55b480e0">
+            <TableID>dbo_dim_part</TableID>
+            <ColumnID>price</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

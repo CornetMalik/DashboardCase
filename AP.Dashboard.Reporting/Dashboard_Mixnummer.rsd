@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description />
+  <DataSet Name="Dashboard_Mixnummer">
+    <Query>
+      <DataSourceReference>DashboardProductie</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@mixNummer">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT      a.Mixnummer, o.Naam, a.Aantal, o.Categorie,o.Stuknummer,s.Naam as Locatie
+FROM            AutoSamenstelling as a
+INNER JOIN Onderdelen as o on o.Stuknummer = a.Stuknummer
+INNER JOIN StockLocatieRanges as s on s.ID = o.StocklocatieRange
+where a.Mixnummer =@mixNummer</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="Mixnummer">
+        <DataField>Mixnummer</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Naam">
+        <DataField>Naam</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Aantal">
+        <DataField>Aantal</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Categorie">
+        <DataField>Categorie</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Stuknummer">
+        <DataField>Stuknummer</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Locatie">
+        <DataField>Locatie</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
